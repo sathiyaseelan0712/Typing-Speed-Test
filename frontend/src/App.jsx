@@ -1,9 +1,10 @@
-import React from 'react';
-import Home from './Components/Home';
-const App = () => {
-  return (
-    <Home />
-  );
-};
+// App.js
+import React from "react";
+import HomePage from "./Components/Home";
+
+function App() {
+  return <HomePage />;
+}
 
 export default App;
+    

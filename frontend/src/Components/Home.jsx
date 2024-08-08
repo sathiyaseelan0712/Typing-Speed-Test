@@ -1,16 +1,50 @@
-import React from 'react';
-import Header from '../Section/Header';
-import Content from '../Section/Content';
-import Footer from '../Section/Footer';
+// HomePage.jsx
+import React from "react";
+import { useTypingTestLogic } from "./TypingTestLogic";
+import Background from "../Sections/Background"; // Ensure the filename is correct
+import Header from "../Sections/Header";
+import Content from "../Sections/Content";
 
-function App() {
+const HomePage = () => {
+  const {
+    difficulty,
+    timer,
+    timeLeft,
+    wordsCorrect,
+    inputValue,
+    isTestActive,
+    testWords,
+    currentWordIndex,
+    handleInputChange,
+    selectTimeLimit,
+    selectDifficulty,
+    resetTest,
+    calculateAccuracy,
+    wpm,
+  } = useTypingTestLogic();
+
   return (
-    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/path/to/your/image.jpg')" }}>
+    <>
+      <Background />
       <Header />
-      <Content />
-      <Footer />
-    </div>
+      <Content 
+        difficulty={difficulty}
+        timer={timer}
+        timeLeft={timeLeft}
+        wordsCorrect={wordsCorrect}
+        inputValue={inputValue}
+        isTestActive={isTestActive}
+        testWords={testWords}
+        currentWordIndex={currentWordIndex}
+        handleInputChange={handleInputChange}
+        selectTimeLimit={selectTimeLimit}
+        selectDifficulty={selectDifficulty}
+        resetTest={resetTest}
+        calculateAccuracy={calculateAccuracy}
+        wpm={wpm}
+      />
+    </>
   );
-}
+};
 
-export default App;
+export default HomePage;

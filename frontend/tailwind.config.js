@@ -1,10 +1,16 @@
 // tailwind.config.js
 module.exports = {
   content: [
-    './src/**/*.{html,js,jsx}', // Adjust the path according to your project structure
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        legend: ['Legend', 'sans-serif'],
+        allerta: ['Allerta', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

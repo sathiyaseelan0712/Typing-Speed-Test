@@ -1,3 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.word {
+  margin-right: 5px;
+}
+
+.word.correct {
+  color: green;
+}
+
+.word.wrong {
+  color: red;
+}
+
+.word.current {
+  text-decoration: underline;
+}
+ 
