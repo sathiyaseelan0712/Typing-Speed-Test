@@ -12,7 +12,7 @@ const Background = ({ children }) => (
                 alt="TypingRacer Logo" 
                 className="h-12 p-2 transform transition-transform duration-300 ease-in-out hover:scale-150" 
             />
-            <h1 className="text-white text-2xl font-bold ml-2 font-allerta">TYPERACER</h1>
+            <h1 className="text-white text-2xl font-bold ml-2 font-allerta">TypeRacer</h1>
         </div>
 
         <div className="absolute top-0 right-0 p-4 flex items-center">
