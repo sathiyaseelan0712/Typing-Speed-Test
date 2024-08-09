@@ -1,8 +1,6 @@
-// HomePage.jsx
 import React from "react";
 import { useTypingTestLogic } from "./TypingTestLogic";
 import Background from "../Sections/Background"; // Ensure the filename is correct
-import Header from "../Sections/Header";
 import Content from "../Sections/Content";
 
 const HomePage = () => {
@@ -24,9 +22,7 @@ const HomePage = () => {
   } = useTypingTestLogic();
 
   return (
-    <>
-      <Background />
-      <Header />
+    <Background>
       <Content 
         difficulty={difficulty}
         timer={timer}
@@ -43,7 +39,7 @@ const HomePage = () => {
         calculateAccuracy={calculateAccuracy}
         wpm={wpm}
       />
-    </>
+    </Background>
   );
 };
 

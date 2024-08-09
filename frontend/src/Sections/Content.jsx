@@ -1,7 +1,7 @@
-// Content.jsx
 import React from 'react';
 
 const Content = ({ 
+    difficulty,
     timer, 
     timeLeft, 
     wordsCorrect, 
@@ -25,7 +25,7 @@ const Content = ({
     };
 
     return (
-        <div className="relative z-10 text-center text-white">
+        <div className="text-center text-white w-full max-w-2xl p-6 bg-opacity-75 bg-black rounded-md">
             <div className="flex justify-center items-center mb-4">
                 <div id="timeName" className="mr-2">Time:</div>
                 <div id="time" className="mr-4">{isTestActive ? timeLeft : timer}</div>
