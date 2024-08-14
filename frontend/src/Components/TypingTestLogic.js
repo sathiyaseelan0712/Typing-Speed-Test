@@ -1,19 +1,31 @@
 import { useState, useEffect } from "react";
 
-const basicWords = [
-  "a", "about", "above", "across", "act", "add", "afraid", "after", "again",
-  "age", "ago", "agree", "air", "all", "alone", "along", "always", "am",
-  "amount", "an", "and", "angry", "another", "answer", "any", "anyone", "appear",
+const beginnerSentences = [
+    "The cat is on the mat.",
+    "I love to read books.",
+    "She has a red car.",
+    "The sun rises in the east.",
+    "He plays soccer every day."
 ];
 
-const topWords = [
-  "ability", "able", "about", "above", "accept", "according", "account",
-  "across", "action", "activity", "actually", "address", "administration",
-  "admit", "adult", "affect", "after", "again", "against", "agency", "agent",
+const intermediateSentences = [
+    "The quick brown fox jumps over the lazy dog.",
+    "I enjoy hiking in the mountains during the summer.",
+    "She received a letter from her friend in the mail.",
+    "The artist painted a beautiful landscape of the countryside.",
+    "They decided to watch a movie after dinner."
+];
+
+const proSentences = [
+    "To be or not to be, that is the question.",
+    "The theory of relativity fundamentally changed our understanding of physics.",
+    "In the beginning, the universe was created. This has made a lot of people very angry and been widely regarded as a bad move.",
+    "She sold seashells by the seashore, despite the stormy weather.",
+    "The quick brown fox jumps over the lazy dog, while the energetic poodle runs circles around them."
 ];
 
 export const useTypingTestLogic = () => {
-  const [difficulty, setDifficulty] = useState(1);
+  const [difficulty, setDifficulty] = useState(1); // 1 = Beginner, 2 = Intermediate, 3 = Pro
   const [timer, setTimer] = useState(30);
   const [timeLeft, setTimeLeft] = useState(timer);
   const [wordsSubmitted, setWordsSubmitted] = useState(0);
@@ -21,11 +33,11 @@ export const useTypingTestLogic = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isTestActive, setIsTestActive] = useState(false);
-  const [testWords, setTestWords] = useState([]);
+  const [testSentence, setTestSentence] = useState(""); // Change from testWords to testSentence
   const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
-    generateTestWords(difficulty);
+    generateTestSentence(difficulty);
   }, [difficulty]);
 
   useEffect(() => {
@@ -34,18 +46,25 @@ export const useTypingTestLogic = () => {
     }
   }, [timeLeft]);
 
-  const generateTestWords = (diff) => {
-    const words = randomWords(diff);
-    setTestWords(words);
+  const generateTestSentence = (diff) => {
+    const sentence = randomSentence(diff);
+    setTestSentence(sentence);
+    console.log("Generated Sentence:", sentence); // Print the sentence
     setCurrentWordIndex(0);
     setInputValue("");
   };
 
-  const randomWords = (diff) => {
-    const wordList = diff === 1 ? basicWords : topWords;
-    return Array.from({ length: 50 }, () =>
-      wordList[Math.floor(Math.random() * wordList.length)]
-    );
+  const randomSentence = (diff) => {
+    switch(diff) {
+      case 1:
+        return beginnerSentences[Math.floor(Math.random() * beginnerSentences.length)];
+      case 2:
+        return intermediateSentences[Math.floor(Math.random() * intermediateSentences.length)];
+      case 3:
+        return proSentences[Math.floor(Math.random() * proSentences.length)];
+      default:
+        return beginnerSentences[Math.floor(Math.random() * beginnerSentences.length)];
+    }
   };
 
   const startTest = () => {
@@ -71,7 +90,7 @@ export const useTypingTestLogic = () => {
       checkWord();
     } else {
       setInputValue(event.target.value);
-      currentWord();
+      currentWord(); // Call currentWord to potentially update the UI (if used in conjunction with the return value)
     }
   };
 
@@ -79,30 +98,16 @@ export const useTypingTestLogic = () => {
     const wordEntered = inputValue.trim();
     setInputValue("");
     setWordsSubmitted((prev) => prev + 1);
-    if (testWords[currentWordIndex] === wordEntered) {
+
+    const words = testSentence.split(" ");
+    if (words[currentWordIndex] === wordEntered) {
       setWordsCorrect((prev) => prev + 1);
     }
-    if (currentWordIndex < testWords.length - 1) {
+    if (currentWordIndex < words.length - 1) {
       setCurrentWordIndex((prev) => prev + 1);
     } else {
-      generateTestWords(difficulty);
+      generateTestSentence(difficulty);
     }
-  };
-
-  const currentWord = () => {
-    const currentWord = testWords[currentWordIndex];
-    const enteredWord = inputValue;
-    const correctPart = currentWord.slice(0, enteredWord.length);
-    if (enteredWord === correctPart) {
-      colorSpan("current");
-    } else {
-      colorSpan("wrong");
-    }
-  };
-
-  const colorSpan = (status) => {
-    const wordSpans = document.getElementsByClassName("word");
-    wordSpans[currentWordIndex].className = `word ${status}`;
   };
 
   const resetTest = () => {
@@ -111,7 +116,7 @@ export const useTypingTestLogic = () => {
     setWordsCorrect(0);
     setTimeLeft(timer);
     setIsTestActive(false);
-    generateTestWords(difficulty);
+    generateTestSentence(difficulty);
   };
 
   const selectTimeLimit = (time) => {
@@ -122,14 +127,14 @@ export const useTypingTestLogic = () => {
 
   const selectDifficulty = (diff) => {
     setDifficulty(diff);
-    generateTestWords(diff);
+    generateTestSentence(diff);
   };
 
   const calculateAccuracy = () => {
     return wordsSubmitted !== 0 ? Math.floor((wordsCorrect / wordsSubmitted) * 100) : 0;
   };
 
-  const wpm = wordsCorrect * (timer === 30 ? 2 : 1);
+  const wpm = wordsCorrect * (timer === 30 ? 2 : timer === 45 ? 1.33 : 1);
 
   return {
     difficulty,
@@ -138,7 +143,7 @@ export const useTypingTestLogic = () => {
     wordsCorrect,
     inputValue,
     isTestActive,
-    testWords,
+    testSentence,
     currentWordIndex,
     handleInputChange,
     selectTimeLimit,

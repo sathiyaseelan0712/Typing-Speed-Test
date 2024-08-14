@@ -2,6 +2,7 @@ import React from "react";
 import { useTypingTestLogic } from "./TypingTestLogic";
 import Background from "../Sections/Background"; // Ensure the filename is correct
 import Content from "../Sections/Content";
+import Header from "../Sections/Header";
 
 const HomePage = () => {
   const {
@@ -11,7 +12,7 @@ const HomePage = () => {
     wordsCorrect,
     inputValue,
     isTestActive,
-    testWords,
+    testSentence, // Use testSentence
     currentWordIndex,
     handleInputChange,
     selectTimeLimit,
@@ -30,7 +31,7 @@ const HomePage = () => {
         wordsCorrect={wordsCorrect}
         inputValue={inputValue}
         isTestActive={isTestActive}
-        testWords={testWords}
+        testSentence={testSentence} // Pass testSentence
         currentWordIndex={currentWordIndex}
         handleInputChange={handleInputChange}
         selectTimeLimit={selectTimeLimit}
