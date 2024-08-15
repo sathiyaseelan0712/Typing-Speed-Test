@@ -30,7 +30,7 @@ function App() {
           path="/signup"
           element={
             <BackgroundWithHeader>
-              <SignIn />
+              <SignUp />
             </BackgroundWithHeader>
           }
         />

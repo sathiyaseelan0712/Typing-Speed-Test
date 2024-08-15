@@ -5,3 +5,9 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: "Meditative";
+    src: url("../assets/fonts/Meditative.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
