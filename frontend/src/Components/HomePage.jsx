@@ -1,12 +1,45 @@
-import React from 'react';
-
+import React from "react";
+import { useTypingTestLogic } from "../hooks/TypingTestLogic";
+import TypingTest from "./TypingTest";
 const HomePage = () => {
+  const {
+    difficulty,
+    timer,
+    timeLeft,
+    wordsCorrect,
+    inputValue,
+    isTestActive,
+    testWords, 
+    currentWordIndex,
+    handleInputChange,
+    selectTimeLimit,
+    selectDifficulty,
+    resetTest,
+    calculateAccuracy,
+    wpm,
+    wordsIncorrect, 
+    calculateErrorPercentage, 
+  } = useTypingTestLogic();
+
   return (
-    <div className="text-white text-center">
-      <h2 className="text-4xl font-bold">Welcome to TypeRacer!</h2>
-      <p className="mt-4 text-lg">Improve your typing speed and accuracy.</p>
-      {/* Typing test component would go here */}
-    </div>
+      <TypingTest
+        difficulty={difficulty}
+        timer={timer}
+        timeLeft={timeLeft}
+        wordsCorrect={wordsCorrect}
+        wordsIncorrect={wordsIncorrect} 
+        inputValue={inputValue}
+        isTestActive={isTestActive}
+        testWords={testWords}
+        currentWordIndex={currentWordIndex}
+        handleInputChange={handleInputChange}
+        selectTimeLimit={selectTimeLimit}
+        selectDifficulty={selectDifficulty}
+        resetTest={resetTest}
+        calculateAccuracy={calculateAccuracy}
+        calculateErrorPercentage={calculateErrorPercentage}
+        wpm={wpm}
+      />
   );
 };
 
