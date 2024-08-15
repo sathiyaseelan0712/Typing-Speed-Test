@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTypingTestLogic } from "../hooks/TypingTestLogic";
 import TypingTest from "./TypingTest";
+import { UserContext } from "../context/UserContext";
+import { Link } from "react-router-dom";
+
 const HomePage = () => {
   const {
     difficulty,
@@ -21,7 +24,17 @@ const HomePage = () => {
     calculateErrorPercentage, 
   } = useTypingTestLogic();
 
+  const { userEmail } = useContext(UserContext);
+  console.log(userEmail);
   return (
+    <div>
+      <div className="flex justify-between items-center p-4">
+
+        {userEmail &&(
+          <span className="text-white font-mono font-bold">{userEmail}</span>
+        ) 
+        }
+      </div>
       <TypingTest
         difficulty={difficulty}
         timer={timer}
@@ -40,6 +53,7 @@ const HomePage = () => {
         calculateErrorPercentage={calculateErrorPercentage}
         wpm={wpm}
       />
+    </div>
   );
 };
 

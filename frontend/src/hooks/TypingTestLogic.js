@@ -63,7 +63,7 @@ export const useTypingTestLogic = () => {
 
   const randomWords = (diff) => {
     const wordsPool = diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
-    const wordCount = 10; // Number of words to generate for the test
+    const wordCount = 25; 
     let generatedWords = [];
 
     for (let i = 0; i < wordCount; i++) {
@@ -90,13 +90,19 @@ export const useTypingTestLogic = () => {
 
   const handleInputChange = (event) => {
     const value = event.target.value;
-    setInputValue(value);
+    const charEntered = event.nativeEvent.data;
 
-    // If the test is not active, start it
     if (!isTestActive) {
       startTest();
     }
+
+    if (/\s/.test(charEntered)) {
+      checkWord();
+    } else {
+      setInputValue(value);
+    }
   };
+
 
   const handleKeyPress = (event) => {
     if (event.key === " ") {
@@ -126,7 +132,7 @@ export const useTypingTestLogic = () => {
     clearInterval(intervalId);
     setWordsSubmitted(0);
     setWordsCorrect(0);
-    setWordsIncorrect(0); // Reset incorrect word count
+    setWordsIncorrect(0); 
     setTimeLeft(timer);
     setIsTestActive(false);
     generateTestWords(difficulty);

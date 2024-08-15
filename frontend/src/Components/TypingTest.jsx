@@ -147,14 +147,14 @@ return (
         )}
         <div className="w-full mb-8">{renderTestWords()}</div>
         <input
-      type="text"
-      value={inputValue}
-      onChange={handleInputChange}
-      className={`w-full p-2 border border-gray-300 rounded-lg ${
-        isTestActive ? 'bg-white' : 'bg-gray-200'
-      }`}
-      disabled={!isTestActive}
-    />
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            className={`w-full p-2 border border-gray-300 rounded-lg ${
+                isTestActive ? 'bg-white' : 'bg-gray-200'
+            }`}
+            disabled={!isTestActive}
+        />
 
         <div className="flex justify-between items-center mt-6 w-full">
             <div className="flex flex-col items-center">

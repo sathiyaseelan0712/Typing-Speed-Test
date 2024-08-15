@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const { setUserEmail } = useContext(UserContext);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -16,21 +18,20 @@ function SignIn() {
         },
         body: JSON.stringify({ email, password }),
       });
-
       if (response.ok) {
-        // Redirect to the home page
-        window.location.href = "/home";
+        setUserEmail(email); // Save the email in context
+        window.location.href = "/home"; // Redirect to the home page
       } else {
-        // Handle login failure
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError("An error occurred. Please try again later.");
     }
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
