@@ -9,6 +9,7 @@ module.exports = {
       fontFamily: {
         legend: ['Legend', 'sans-serif'],
         allerta: ['Allerta', 'sans-serif'],
+        anime: ['"Anime Pocket Monk"', 'sans-serif'],
       },
     },
   },
