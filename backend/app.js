@@ -1,11 +1,16 @@
 const express = require('express');
-const app = express();
-app.use(express.json());
-
-// Define a simple route
+const cors = require('cors');
 const authRoutes = require('./routes/auth');
+
+const app = express();
+
+app.use(cors()); 
+app.use(express.json()); 
+
+// Routes
 app.use('/api/auth', authRoutes);
-// Error handling middleware
+
+// Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
