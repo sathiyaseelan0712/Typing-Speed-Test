@@ -1,43 +1,281 @@
 import { useState, useEffect } from "react";
+
 const beginnerWords = [
-  "cat", "dog", "book", "car", "sun", "mat", "apple", "ball", "hat", "sky",
-  "run", "jump", "fish", "tree", "star", "moon", "bird", "rain", "snow", "wind",
-  "blue", "red", "green", "yellow", "orange", "purple", "pink", "white", "black", "brown",
-  "house", "home", "school", "friend", "family", "happy", "sad", "good", "bad", "fun",
-  "play", "sing", "dance", "read", "write", "draw", "paint", "build", "break", "fix",
-  "eat", "drink", "sleep", "wake", "work", "rest", "laugh", "cry", "talk", "listen",
-  "smile", "frown", "shout", "whisper", "begin", "end", "stop", "go", "come", "leave",
-  "small", "big", "short", "long", "hot", "cold", "warm", "cool", "soft", "hard",
-  "day", "night", "morning", "evening", "noon", "afternoon", "week", "month", "year", "time"
+  "cat",
+  "dog",
+  "book",
+  "car",
+  "sun",
+  "mat",
+  "apple",
+  "ball",
+  "hat",
+  "sky",
+  "run",
+  "jump",
+  "fish",
+  "tree",
+  "star",
+  "moon",
+  "bird",
+  "rain",
+  "snow",
+  "wind",
+  "blue",
+  "red",
+  "green",
+  "yellow",
+  "orange",
+  "purple",
+  "pink",
+  "white",
+  "black",
+  "brown",
+  "house",
+  "home",
+  "school",
+  "friend",
+  "family",
+  "happy",
+  "sad",
+  "good",
+  "bad",
+  "fun",
+  "play",
+  "sing",
+  "dance",
+  "read",
+  "write",
+  "draw",
+  "paint",
+  "build",
+  "break",
+  "fix",
+  "eat",
+  "drink",
+  "sleep",
+  "wake",
+  "work",
+  "rest",
+  "laugh",
+  "cry",
+  "talk",
+  "listen",
+  "smile",
+  "frown",
+  "shout",
+  "whisper",
+  "begin",
+  "end",
+  "stop",
+  "go",
+  "come",
+  "leave",
+  "small",
+  "big",
+  "short",
+  "long",
+  "hot",
+  "cold",
+  "warm",
+  "cool",
+  "soft",
+  "hard",
+  "day",
+  "night",
+  "morning",
+  "evening",
+  "noon",
+  "afternoon",
+  "week",
+  "month",
+  "year",
+  "time",
 ];
+
 const intermediateWords = [
-  "quick", "brown", "fox", "jumps", "lazy", "enjoy", "hiking", "mountains", "summer", "artist",
-  "beautiful", "landscape", "countryside", "decided", "movie", "dinner", "received", "letter", "friend", "mail",
-  "challenge", "improve", "skill", "practice", "explore", "nature", "outdoor", "activity", "hobby", "weekend",
-  "journey", "adventure", "discover", "exciting", "scenic", "view", "trail", "forest", "river", "lake",
-  "relax", "recharge", "escape", "city", "urban", "noise", "pollution", "quiet", "peaceful", "serene",
-  "exercise", "health", "benefit", "physical", "mental", "wellness", "stress", "relief", "mind", "body",
-  "challenge", "goal", "achievement", "success", "progress", "effort", "dedication", "motivation", "discipline", "focus",
-  "sunset", "sunrise", "evening", "twilight", "dusk", "dawn", "starry", "night", "clear", "sky",
-  "experience", "memory", "moment", "capture", "photograph", "image", "frame", "album", "journey", "travel"
+  "quick",
+  "brown",
+  "fox",
+  "jumps",
+  "lazy",
+  "enjoy",
+  "hiking",
+  "mountains",
+  "summer",
+  "artist",
+  "beautiful",
+  "landscape",
+  "countryside",
+  "decided",
+  "movie",
+  "dinner",
+  "received",
+  "letter",
+  "friend",
+  "mail",
+  "challenge",
+  "improve",
+  "skill",
+  "practice",
+  "explore",
+  "nature",
+  "outdoor",
+  "activity",
+  "hobby",
+  "weekend",
+  "journey",
+  "adventure",
+  "discover",
+  "exciting",
+  "scenic",
+  "view",
+  "trail",
+  "forest",
+  "river",
+  "lake",
+  "relax",
+  "recharge",
+  "escape",
+  "city",
+  "urban",
+  "noise",
+  "pollution",
+  "quiet",
+  "peaceful",
+  "serene",
+  "exercise",
+  "health",
+  "benefit",
+  "physical",
+  "mental",
+  "wellness",
+  "stress",
+  "relief",
+  "mind",
+  "body",
+  "challenge",
+  "goal",
+  "achievement",
+  "success",
+  "progress",
+  "effort",
+  "dedication",
+  "motivation",
+  "discipline",
+  "focus",
+  "sunset",
+  "sunrise",
+  "evening",
+  "twilight",
+  "dusk",
+  "dawn",
+  "starry",
+  "night",
+  "clear",
+  "sky",
+  "experience",
+  "memory",
+  "moment",
+  "capture",
+  "photograph",
+  "image",
+  "frame",
+  "album",
+  "journey",
+  "travel",
 ];
+
 const proWords = [
-  "relativity", "fundamentally", "understanding", "physics", "universe", "angry", "regarded", "created", "stormy", "poodle",
-  "seashells", "seashore", "theory", "question", "problem", "solution", "equation", "formula", "calculation", "scientific",
-  "paradox", "dilemma", "hypothesis", "experiment", "evidence", "conclusion", "interpretation", "analysis", "research", "inquiry",
-  "literature", "criticism", "narrative", "metaphor", "symbolism", "allegory", "theme", "motif", "genre", "structure",
-  "aesthetics", "philosophy", "ethics", "morality", "conscience", "virtue", "vice", "existential", "absurd", "nihilism",
-  "rhetoric", "dialectic", "discourse", "argument", "persuasion", "debate", "dialogue", "monologue", "soliloquy", "oration",
-  "syllogism", "proposition", "premise", "conclusion", "validity", "truth", "proof", "evidence", "fallacy", "cognitive",
-  "dissonance", "bias", "prejudice", "stereotype", "discrimination", "oppression", "liberation", "emancipation", "freedom", "justice"
+  "relativity",
+  "fundamentally",
+  "understanding",
+  "physics",
+  "universe",
+  "angry",
+  "regarded",
+  "created",
+  "stormy",
+  "poodle",
+  "seashells",
+  "seashore",
+  "theory",
+  "question",
+  "problem",
+  "solution",
+  "equation",
+  "formula",
+  "calculation",
+  "scientific",
+  "paradox",
+  "dilemma",
+  "hypothesis",
+  "experiment",
+  "evidence",
+  "conclusion",
+  "interpretation",
+  "analysis",
+  "research",
+  "inquiry",
+  "literature",
+  "criticism",
+  "narrative",
+  "metaphor",
+  "symbolism",
+  "allegory",
+  "theme",
+  "motif",
+  "genre",
+  "structure",
+  "aesthetics",
+  "philosophy",
+  "ethics",
+  "morality",
+  "conscience",
+  "virtue",
+  "vice",
+  "existential",
+  "absurd",
+  "nihilism",
+  "rhetoric",
+  "dialectic",
+  "discourse",
+  "argument",
+  "persuasion",
+  "debate",
+  "dialogue",
+  "monologue",
+  "soliloquy",
+  "oration",
+  "syllogism",
+  "proposition",
+  "premise",
+  "conclusion",
+  "validity",
+  "truth",
+  "proof",
+  "evidence",
+  "fallacy",
+  "cognitive",
+  "dissonance",
+  "bias",
+  "prejudice",
+  "stereotype",
+  "discrimination",
+  "oppression",
+  "liberation",
+  "emancipation",
+  "freedom",
+  "justice",
 ];
+
 export const useTypingTestLogic = () => {
-  const [difficulty, setDifficulty] = useState(1); 
+  const [difficulty, setDifficulty] = useState(1);
   const [timer, setTimer] = useState(30);
   const [timeLeft, setTimeLeft] = useState(timer);
   const [wordsSubmitted, setWordsSubmitted] = useState(0);
   const [wordsCorrect, setWordsCorrect] = useState(0);
-  const [wordsIncorrect, setWordsIncorrect] = useState(0); 
+  const [wordsIncorrect, setWordsIncorrect] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isTestActive, setIsTestActive] = useState(false);
@@ -53,6 +291,8 @@ export const useTypingTestLogic = () => {
       endTest();
     }
   }, [timeLeft]);
+  
+  
 
   const generateTestWords = (diff) => {
     const words = randomWords(diff);
@@ -62,8 +302,9 @@ export const useTypingTestLogic = () => {
   };
 
   const randomWords = (diff) => {
-    const wordsPool = diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
-    const wordCount = 25; 
+    const wordsPool =
+      diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
+    const wordCount = 25;
     let generatedWords = [];
 
     for (let i = 0; i < wordCount; i++) {
@@ -88,28 +329,6 @@ export const useTypingTestLogic = () => {
     setInputValue("");
   };
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    const charEntered = event.nativeEvent.data;
-
-    if (!isTestActive) {
-      startTest();
-    }
-
-    if (/\s/.test(charEntered)) {
-      checkWord();
-    } else {
-      setInputValue(value);
-    }
-  };
-
-
-  const handleKeyPress = (event) => {
-    if (event.key === " ") {
-      checkWord();
-    }
-  };
-
   const checkWord = () => {
     const wordEntered = inputValue.trim();
     setInputValue("");
@@ -128,11 +347,19 @@ export const useTypingTestLogic = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+
+    if (e.target.value.endsWith(" ")) {
+      checkWord();
+    }
+  };
+
   const resetTest = () => {
     clearInterval(intervalId);
     setWordsSubmitted(0);
     setWordsCorrect(0);
-    setWordsIncorrect(0); 
+    setWordsIncorrect(0);
     setTimeLeft(timer);
     setIsTestActive(false);
     generateTestWords(difficulty);
@@ -150,11 +377,15 @@ export const useTypingTestLogic = () => {
   };
 
   const calculateAccuracy = () => {
-    return wordsSubmitted !== 0 ? Math.floor((wordsCorrect / wordsSubmitted) * 100) : 0;
+    return wordsSubmitted !== 0
+      ? Math.floor((wordsCorrect / wordsSubmitted) * 100)
+      : 0;
   };
 
   const calculateErrorPercentage = () => {
-    return wordsSubmitted !== 0 ? Math.floor((wordsIncorrect / wordsSubmitted) * 100) : 0;
+    return wordsSubmitted !== 0
+      ? Math.floor((wordsIncorrect / wordsSubmitted) * 100)
+      : 0;
   };
 
   const wpm = wordsCorrect * (timer === 30 ? 2 : timer === 45 ? 1.33 : 1);
@@ -170,12 +401,11 @@ export const useTypingTestLogic = () => {
     testWords,
     currentWordIndex,
     handleInputChange,
-    handleKeyPress,
     selectTimeLimit,
     selectDifficulty,
     resetTest,
     calculateAccuracy,
-    calculateErrorPercentage, 
+    calculateErrorPercentage,
     wpm,
   };
 };

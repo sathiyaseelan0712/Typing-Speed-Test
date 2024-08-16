@@ -90,18 +90,18 @@ function SignUp() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
-      <p className="text-4xl font-extrabold text-white text-center mb-6 font-mono">
+      <p className="text-3xl font-extrabold text-white text-center mb-4  font-mono">
         Your Journey To Typing Mastery Begins Here.
       </p>
-      <p className="text-2xl font-extrabold text-yellow-400 font-mono text-center mb-6">
+      <p className="text-2xl font-extrabold text-yellow-400 font-mono text-center mb-2">
         Sign Up To Measure, Master, & Dominate!
       </p>
       <div className="bg-transparent p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-white font-mono text-center mb-6">
+        <h2 className="text-3xl font-bold text-white font-mono text-center mb-2">
           Join TypeRacer
         </h2>
         <form onSubmit={handleSignUp}>
-        <div className="mb-4">
+        <div className="mb-2">
             <label
               className="block text-white font-mono font-extrabold text-lg mb-2"
               htmlFor="email"
@@ -232,7 +232,7 @@ function SignUp() {
           </button>
         </form>
         <p className="mt-6 text-center text-white text-md">
-          AlreadyoOnTypeRacer?{" "}
+          AlreadyOnTypeRacer?{" "}
           <a
             href="/signin"
             className="text-yellow-400 font-mono hover:underline"
