@@ -32,12 +32,12 @@ const proWords = [
   "dissonance", "bias", "prejudice", "stereotype", "discrimination", "oppression", "liberation", "emancipation", "freedom", "justice"
 ];
 export const useTypingTestLogic = () => {
-  const [difficulty, setDifficulty] = useState(1); // 1 = Beginner, 2 = Intermediate, 3 = Pro
+  const [difficulty, setDifficulty] = useState(1); 
   const [timer, setTimer] = useState(30);
   const [timeLeft, setTimeLeft] = useState(timer);
   const [wordsSubmitted, setWordsSubmitted] = useState(0);
   const [wordsCorrect, setWordsCorrect] = useState(0);
-  const [wordsIncorrect, setWordsIncorrect] = useState(0); // Track incorrect words
+  const [wordsIncorrect, setWordsIncorrect] = useState(0); 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isTestActive, setIsTestActive] = useState(false);
@@ -77,7 +77,7 @@ export const useTypingTestLogic = () => {
   const startTest = () => {
     setIsTestActive(true);
     const id = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
+      setTimeLeft((prev) => prev - 1);
     }, 1000);
     setIntervalId(id);
   };

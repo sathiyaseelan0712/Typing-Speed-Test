@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,50 +25,65 @@ function SignUp() {
     e.preventDefault();
 
     // Basic client-side validation
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword || !name) {
       setErrorMessage("Please fill in all fields.");
       return;
     }
-
+    if (typeof name !== "string") {
+      setErrorMessage("Name must be a string.");
+      return;
+    }
+    if (!email.includes("@") || !email.includes(".")) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
     }
+    if (password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters long.");
+      return;
+    }
 
     try {
-      // Example: Fetching the user's IP address before signing up
       const {
         data: { ip },
       } = await axios.get("https://api.ipify.org?format=json");
 
       console.log("User IP Address:", ip);
 
-      // Post the signup data to the server
       const response = await axios.post(
         "http://localhost:3000/api/auth/signup",
         {
+          name,
           email,
           password,
           confirmPassword,
         }
       );
-
-      // Handle successful sign-up (e.g., redirect to login or home page)
       console.log(response.data);
       setErrorMessage("");
       alert("Sign-up successful!");
-      navigate('/signin');
+      navigate("/signin");
     } catch (error) {
       if (error.response) {
         console.error("Response error data:", error.response.data);
         console.error("Response error status:", error.response.status);
-        setErrorMessage(error.response.data.message || "Sign-up failed. Please try again.");
+        setErrorMessage(
+          error.response.data.message || "Sign-up failed. Please try again."
+        );
       } else if (error.request) {
         console.error("No response received:", error.request);
-        setErrorMessage("No response received from server. Please check your network connection.");
+        setErrorMessage(
+          "No response received from server. Please check your network connection."
+        );
       } else {
         console.error("Error setting up request:", error.message);
-        setErrorMessage("An error occurred while setting up the request. Please try again.");
+        setErrorMessage(
+          "An error occurred while setting up the request. Please try again."
+        );
       }
     }
   };
@@ -85,6 +101,23 @@ function SignUp() {
           Join TypeRacer
         </h2>
         <form onSubmit={handleSignUp}>
+        <div className="mb-4">
+            <label
+              className="block text-white font-mono font-extrabold text-lg mb-2"
+              htmlFor="email"
+            >
+              Name
+            </label>
+            <input
+              className="w-full px-4 py-2 bg-transparent text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              id="name"
+              type="text"
+              placeholder="Enter Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{ border: "3px solid white" }}
+            />
+          </div>
           <div className="mb-4">
             <label
               className="block text-white font-mono font-extrabold text-lg mb-2"

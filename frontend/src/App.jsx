@@ -5,7 +5,7 @@ import HomePage from "./Components/HomePage";
 import SignIn from "./Components/SignIn";
 import Dashboard from "./Components/Dashboard";
 import SignUp from "./Components/SignUp";
-
+import ForgotPassword from "./Components/ForgotPassword";
 function App() {
   return (
     <Router>
@@ -23,6 +23,14 @@ function App() {
           element={
             <BackgroundWithHeader>
               <SignIn />
+            </BackgroundWithHeader>
+          }
+        />
+        <Route
+          path="/forgotpassword"
+          element={
+            <BackgroundWithHeader>
+              <ForgotPassword />
             </BackgroundWithHeader>
           }
         />

@@ -27,6 +27,7 @@ const BackGround = ({ children }) => {
         );
       case "/signin":
       case "/signup":
+      case "/forgotpassword":
         return (
           <Link
             to="/dashboard"
@@ -44,6 +45,7 @@ const BackGround = ({ children }) => {
             Logout
           </Link>
         );
+
       default:
         return null;
     }

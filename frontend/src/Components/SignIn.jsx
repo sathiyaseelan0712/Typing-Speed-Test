@@ -115,10 +115,10 @@ function SignIn() {
                 type="checkbox"
                 className="form-checkbox bg-transparent text-white rounded"
               />
-              <span className="ml-2">Remember Me</span>
+              <span className="ml-2 font-mono">Remember Me</span>
             </label>
-            <a href="#" className="text-yellow-400 hover:underline text-md">
-              Forgot password?
+            <a href="/forgotpassword" className="text-yellow-400 font-mono hover:underline text-md">
+              ForgotPassword?
             </a>
           </div>
           {error && (
