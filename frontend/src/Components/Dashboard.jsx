@@ -1,8 +1,7 @@
 import React from "react";
 import { useTypingTestLogic } from "../hooks/TypingTestLogic";
 import TypingTest from "./TypingTest";
-
-const DashBoard = () => {
+const Home = () => {
   const {
     difficulty,
     timer,
@@ -10,38 +9,41 @@ const DashBoard = () => {
     wordsCorrect,
     inputValue,
     isTestActive,
-    testWords,
+    testWords, 
     currentWordIndex,
     handleInputChange,
     selectTimeLimit,
     selectDifficulty,
     resetTest,
+    startTest,
     calculateAccuracy,
     wpm,
-    wordsIncorrect,
-    calculateErrorPercentage,
+    wordsIncorrect, 
+    calculateErrorPercentage, 
   } = useTypingTestLogic();
 
   return (
-    <TypingTest
-      difficulty={difficulty}
-      timer={timer}
-      timeLeft={timeLeft}
-      wordsCorrect={wordsCorrect}
-      wordsIncorrect={wordsIncorrect}
-      inputValue={inputValue}
-      isTestActive={isTestActive}
-      testWords={testWords}
-      currentWordIndex={currentWordIndex}
-      handleInputChange={handleInputChange}
-      selectTimeLimit={selectTimeLimit}
-      selectDifficulty={selectDifficulty}
-      resetTest={resetTest}
-      calculateAccuracy={calculateAccuracy}
-      calculateErrorPercentage={calculateErrorPercentage}
-      wpm={wpm}
-    />
+
+      <TypingTest 
+        difficulty={difficulty}
+        timer={timer}
+        timeLeft={timeLeft}
+        wordsCorrect={wordsCorrect}
+        wordsIncorrect={wordsIncorrect} 
+        inputValue={inputValue}
+        isTestActive={isTestActive}
+        testWords={testWords}
+        currentWordIndex={currentWordIndex}
+        handleInputChange={handleInputChange}
+        selectTimeLimit={selectTimeLimit}
+        selectDifficulty={selectDifficulty}
+        resetTest={resetTest}
+        startTest={startTest}
+        calculateAccuracy={calculateAccuracy}
+        calculateErrorPercentage={calculateErrorPercentage}
+        wpm={wpm}
+      />
   );
 };
 
-export default DashBoard;
+export default Home;

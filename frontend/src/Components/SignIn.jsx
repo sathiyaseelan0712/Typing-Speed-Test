@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -7,31 +8,45 @@ function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const { setUserEmail } = useContext(UserContext);
-
+ const navigate = useNavigate()
   const handleSignIn = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch("http://localhost:3000/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      if (response.ok) {
-        setUserEmail(email); // Save the email in context
-        window.location.href = "/home"; // Redirect to the home page
+      // Step 1: Sign In
+      const signInResponse = await fetch(
+        "http://localhost:3000/api/auth/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (signInResponse.ok) {
+        const signInData = await signInResponse.json(); 
+        console.log("Sign-in response data:", signInData); 
+
+        if (signInData) {
+          setUserEmail(email); 
+          console.log("Email stored:", email);
+          navigate('/home');
+        } else {
+          console.log("Sign-in response data is null");
+          setError("Login failed. Please check your credentials.");
+        }
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error during sign-in:", error); 
       setError("An error occurred. Please try again later.");
     }
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
@@ -117,13 +132,14 @@ function SignIn() {
               />
               <span className="ml-2 font-mono">Remember Me</span>
             </label>
-            <a href="/forgotpassword" className="text-yellow-400 font-mono hover:underline text-md">
+            <a
+              href="/forgotpassword"
+              className="text-yellow-400 font-mono hover:underline text-md"
+            >
               ForgotPassword?
             </a>
           </div>
-          {error && (
-            <p className="text-red-500 text-center mb-4">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <button
             className="w-100vw bg-white text-black font-mono py-2 px-4 rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
             type="submit"
@@ -133,7 +149,10 @@ function SignIn() {
         </form>
         <p className="mt-6 text-center text-white font-mono text-md">
           NewToTypeRacer?{" "}
-          <a href="/signup" className="text-yellow-400 font-mono hover:underline">
+          <a
+            href="/signup"
+            className="text-yellow-400 font-mono hover:underline"
+          >
             SignUpNow
           </a>
         </p>

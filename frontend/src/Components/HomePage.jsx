@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import { useContext, useEffect } from "react"; // Import useEffect from react package
 import { useTypingTestLogic } from "../hooks/TypingTestLogic";
 import TypingTest from "./TypingTest";
 import { UserContext } from "../context/UserContext";
-import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const {
@@ -24,17 +23,30 @@ const HomePage = () => {
     calculateErrorPercentage, 
   } = useTypingTestLogic();
 
-  const { userEmail } = useContext(UserContext);
-  console.log(userEmail);
+  const { userEmail, setUserEmail,  setUserName } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchName = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/auth/id?email=${userEmail}`);
+        if (response.ok) {
+          const data = await response.json();
+          setUserName(data.name);
+        } else {
+          console.error("Error fetching name:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching name:", error);
+      }
+    };
+
+    if (userEmail) {
+      fetchName();
+    }
+  }, [setUserEmail, setUserName, userEmail]);
+  
   return (
     <div>
-      <div className="flex justify-between items-center p-4">
-
-        {userEmail &&(
-          <span className="text-white font-mono font-bold">{userEmail}</span>
-        ) 
-        }
-      </div>
       <TypingTest
         difficulty={difficulty}
         timer={timer}

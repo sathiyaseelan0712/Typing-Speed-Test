@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +37,7 @@ function SignUp() {
       setErrorMessage("Please enter a valid email address.");
       return;
     }
-  
+
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
@@ -101,7 +101,7 @@ function SignUp() {
           Join TypeRacer
         </h2>
         <form onSubmit={handleSignUp}>
-        <div className="mb-2">
+          <div className="mb-2">
             <label
               className="block text-white font-mono font-extrabold text-lg mb-2"
               htmlFor="email"

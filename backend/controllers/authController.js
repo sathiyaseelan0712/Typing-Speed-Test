@@ -1,5 +1,19 @@
-const { get } = require("mongoose");
 const UserDetails = require("../models/UserModel");
+
+const getName = async (req, res) => {
+  try {
+    const { email } = req.query.email;  
+    const data = await UserDetails.findOne(email );
+    if (!data) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { name } = data;
+    res.status(200).json({"name": name });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
 const signUp = async (req, res) => {
   try {
@@ -33,17 +47,22 @@ const signIn = async (req, res) => {
 };
 
 const getUserData = async (req, res) => {
-  const { email } = req.body;
-  const user = await UserDetails.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
+  try {
+    const { email } = req.body;
+    const user = await UserDetails.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const { password, ...userData } = user.toObject();
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-  const { password, ...userData } = user.toObject();
-  res.status(200).json(userData);
 };
 
 module.exports = {
   signUp,
   signIn,
   getUserData,
+  getName
 };

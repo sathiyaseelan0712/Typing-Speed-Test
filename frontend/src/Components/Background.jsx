@@ -1,10 +1,12 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Bg from "../images/bg.jpg";
 import Logo from "../images/logo.png";
-
+import { UserContext } from '../context/UserContext';  // Import UserContext correctly
+import { useContext } from "react";
+// eslint-disable-next-line react/prop-types
 const BackGround = ({ children }) => {
   const location = useLocation();
+  const { userName } = useContext(UserContext); 
 
   const renderButtons = () => {
     switch (location.pathname) {
@@ -38,12 +40,13 @@ const BackGround = ({ children }) => {
         );
       case "/home":
         return (
-          <Link
-            to="/dashboard"
-            className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
-          >
-            Logout
-          </Link>
+          <div className="user-info">
+            <span className="text-white mr-4 text-lg font-mono font-bold">{userName}</span>
+            <Link className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
+            to="/dashboard">
+              Logout
+            </Link>
+          </div>
         );
 
       default:
