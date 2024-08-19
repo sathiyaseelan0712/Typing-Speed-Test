@@ -16,7 +16,7 @@ function SignIn() {
     try {
       // Step 1: Sign In
       const signInResponse = await fetch(
-        "http://localhost:3000/api/auth/signin",
+        "https://type-racer-api.vercel.app/api/auth/signin",
         {
           method: "POST",
           headers: {
@@ -51,7 +51,7 @@ function SignIn() {
     const fetchName = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/auth/id?email=${email}`
+          `https://type-racer-api.vercel.app/api/auth/id?email=${email}`
         );
         if (response.ok) {
           const data = await response.json();
