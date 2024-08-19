@@ -5,7 +5,7 @@ const authRoutes = require('./routes/auth');
 const app = express();
 
 app.use(cors(({
-    origin: 'https://typeracer-pi.vercel.app/',
+    origin: 'https://typeracer-pi.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   }))); 
