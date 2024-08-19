@@ -6,7 +6,7 @@ import { useContext } from "react";
 // eslint-disable-next-line react/prop-types
 const BackGround = ({ children }) => {
   const location = useLocation();
-  const { userName } = useContext(UserContext); 
+  const { userName,setUserName } = useContext(UserContext); 
 
   const renderButtons = () => {
     switch (location.pathname) {
@@ -42,8 +42,11 @@ const BackGround = ({ children }) => {
         return (
           <div className="user-info">
             <span className="text-white mr-4 text-lg font-mono font-bold">{userName}</span>
-            <Link className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
-            to="/dashboard">
+            <Link
+              className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
+              to="/dashboard"
+              onClick={() => setUserName("")}
+            >
               Logout
             </Link>
           </div>
@@ -67,7 +70,7 @@ const BackGround = ({ children }) => {
           alt="TypingRacer Logo"
           className="h-12 p-2 transform transition-transform duration-300 ease-in-out hover:scale-150"
         />
-        <h1 className="text-white text-2xl font-bold ml-2 font-anime">
+        <h1 className="text-white text-2xl font-bold ml-2 font-mono">
           TypeRacer
         </h1>
       </div>

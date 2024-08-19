@@ -1,12 +1,13 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+
 const Content = ({
   difficulty,
   timer,
   timeLeft,
   wordsCorrect,
-  // eslint-disable-next-line no-unused-vars
-  wordsIncorrect,
   inputValue,
   isTestActive,
   testWords,
@@ -21,23 +22,40 @@ const Content = ({
   wpm,
 }) => {
   const location = useLocation();
+  const [inputValueHistory, setInputValueHistory] = useState([]); // Stores the typed words
+
+  const handleInput = (e) => {
+    handleInputChange(e);
+    if (e.key === " ") {
+      handleSpaceKeyPress();
+    }
+  };
+
+  const handleSpaceKeyPress = () => {
+    const trimmedWord = inputValue.trim();
+    if (trimmedWord.length > 0) {
+      setInputValueHistory([...inputValueHistory, trimmedWord]); // Add the typed word to history
+      setCurrentWordIndex(currentWordIndex + 1); // Move to the next word
+      setInputValue(""); // Clear the input field for the next word
+    }
+  };
+
   const renderTestWords = () => {
     if (!testWords.length) {
       return null;
     }
 
     return testWords.map((word, index) => {
-      let className = "text-white";
+      let className = "text-white"; // Default color: white
 
       if (index < currentWordIndex) {
-        className = "text-green-400";
+        // Check if the word was typed correctly
+        const typedWord = inputValueHistory[index]?.trim() || "";
+        className = typedWord === word
+          ? "text-green-400"  // Correctly typed word: green
+          : "text-red-400";    // Incorrectly typed word: red
       } else if (index === currentWordIndex) {
-        const typedWord = inputValue.trim();
-        if (typedWord.length > 0) {
-          className = typedWord === word
-            ? "text-green-400"
-            : "text-red-400";
-        }
+        className = "text-yellow-400"; // Current word being typed: yellow
       }
 
       return (
@@ -54,7 +72,7 @@ const Content = ({
         <div className="flex flex-col items-center">
           <span className="text-yellow-400 text-lg font-mono font-extrabold mb-1">Time</span>
           <span
-            className={`text-6xl font-extrabold font-anime ${
+            className={`text-6xl font-extrabold font-mono ${
               isTestActive ? "text-white" : "text-gray-500"
             }`}
           >
@@ -64,7 +82,7 @@ const Content = ({
         <div className="flex flex-col items-center font-mono font-extrabold">
           <span className="text-yellow-400 text-lg mb-1">CorrectWords</span>
           <span
-            className={`text-6xl font-bold font-anime ${
+            className={`text-6xl font-bold font-mono ${
               isTestActive ? "text-white" : "text-gray-500"
             }`}
           >
@@ -77,7 +95,7 @@ const Content = ({
         <div className="flex flex-col items-center">
           <button
             id="thirty"
-            className={`text-2xl text-white-500 font-anime font-bold ${
+            className={`text-2xl text-white-500 font-mono font-bold ${
               timer === 30 ? "text-yellow-400 font-bold" : "text-gray-400"
             }`}
             onClick={() => selectTimeLimit(30)}
@@ -99,7 +117,7 @@ const Content = ({
         <div className="flex flex-col items-center">
           <button
             id="fortyFive"
-            className={`text-2xl text-white-500 font-anime font-bold ${
+            className={`text-2xl text-white-500 font-mono font-bold ${
               timer === 45 ? "text-yellow-400 font-bold" : "text-gray-400"
             }`}
             onClick={() => selectTimeLimit(45)}
@@ -121,7 +139,7 @@ const Content = ({
         <div className="flex flex-col items-center">
           <button
             id="sixty"
-            className={`text-2xl text-white-500 font-anime font-bold ${
+            className={`text-2xl text-white-500 font-mono font-bold ${
               timer === 60 ? "text-yellow-400 font-bold" : "text-gray-400"
             }`}
             onClick={() => selectTimeLimit(60)}
@@ -149,6 +167,7 @@ const Content = ({
         type="text"
         value={inputValue}
         onChange={handleInputChange}
+        onKeyDown={handleInput}
         className={`w-full p-2 border border-gray-300 rounded-lg ${
           isTestActive ? "bg-white" : "bg-gray-200"
         }`}
@@ -159,7 +178,7 @@ const Content = ({
           <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
             Accuracy
           </span>
-          <span className="text-4xl font-anime font-bold text-white">
+          <span className="text-4xl font-mono font-bold text-white">
             {calculateAccuracy()}%
           </span>
         </div>
@@ -167,7 +186,7 @@ const Content = ({
           <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
             Errors
           </span>
-          <span className="text-4xl font-anime font-bold text-white">
+          <span className="text-4xl font-mono font-bold text-white">
             {calculateErrorPercentage()}%
           </span>
         </div>
@@ -175,7 +194,7 @@ const Content = ({
           <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
             WPM
           </span>
-          <span className="text-4xl font-anime font-bold text-white">
+          <span className="text-4xl font-mono font-bold text-white">
             {wpm}
           </span>
         </div>
@@ -183,13 +202,13 @@ const Content = ({
       <div className="flex justify-between w-full mt-6">
       <button
         onClick={resetTest}
-        className="px-4 py-2 bg-yellow-400 text-black rounded-2xl font-anime font-bold"
+        className="px-4 py-2 bg-white text-black font-mono  rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
       >
         RestartTest
       </button>
         <button
         onClick={startTest}
-        className="px-4 py-2 bg-yellow-400 text-black rounded-2xl font-anime font-bold"
+        className="px-4 py-2 bg-white text-black font-mono  rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
       >
         StartTest
       </button>

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -7,8 +7,9 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const { setUserEmail } = useContext(UserContext);
- const navigate = useNavigate()
+  const { setUserEmail, setUserName } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const handleSignIn = async (e) => {
     e.preventDefault();
 
@@ -26,13 +27,13 @@ function SignIn() {
       );
 
       if (signInResponse.ok) {
-        const signInData = await signInResponse.json(); 
-        console.log("Sign-in response data:", signInData); 
+        const signInData = await signInResponse.json();
+        console.log("Sign-in response data:", signInData);
 
         if (signInData) {
-          setUserEmail(email); 
+          setUserEmail(email);
           console.log("Email stored:", email);
-          navigate('/home');
+          navigate("/home");
         } else {
           console.log("Sign-in response data is null");
           setError("Login failed. Please check your credentials.");
@@ -41,10 +42,33 @@ function SignIn() {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error("Error during sign-in:", error); 
+      console.error("Error during sign-in:", error);
       setError("An error occurred. Please try again later.");
     }
   };
+
+  useEffect(() => {
+    const fetchName = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/auth/id?email=${email}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setUserName(data.name);
+        } else {
+          console.error("Error fetching name:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching name:", error);
+      }
+    };
+
+    // Fetch the user's name if the email is set
+    if (email) {
+      fetchName();
+    }
+  }, [email, setUserName]);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 

@@ -1,18 +1,16 @@
 // tailwind.config.js
-module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        legend: ['Legend', 'sans-serif'],
-        allerta: ['Allerta', 'sans-serif'],
-        anime: ['"Anime Pocket Monk"', 'sans-serif'],
-        meditative:["Meditative","sans-serif"],
-      },
+export const content = [
+  './index.html',
+  './src/**/*.{js,ts,jsx,tsx}',
+];
+export const theme = {
+  extend: {
+    fontFamily: {
+      legend: ['Legend', 'sans-serif'],
+      allerta: ['Allerta', 'sans-serif'],
+      // mono: ['', 'sans-serif'],
+      meditative: ["Meditative", "sans-serif"],
     },
   },
-  plugins: [],
-}
+};
+export const plugins = [];

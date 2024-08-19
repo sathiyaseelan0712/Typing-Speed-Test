@@ -2,14 +2,13 @@ const UserDetails = require("../models/UserModel");
 
 const getName = async (req, res) => {
   try {
-    const { email } = req.query.email;  
-    const data = await UserDetails.findOne(email );
+    const { email } = req.query;
+    const data = await UserDetails.findOne({email});
     if (!data) {
       return res.status(404).json({ message: "User not found" });
     }
-
     const { name } = data;
-    res.status(200).json({"name": name });
+    res.status(200).json({ name });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

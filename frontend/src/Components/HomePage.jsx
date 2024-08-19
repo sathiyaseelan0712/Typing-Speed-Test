@@ -19,11 +19,12 @@ const HomePage = () => {
     resetTest,
     calculateAccuracy,
     wpm,
+    startTest,
     wordsIncorrect, 
     calculateErrorPercentage, 
   } = useTypingTestLogic();
 
-  const { userEmail, setUserEmail,  setUserName } = useContext(UserContext);
+  const { userEmail, setUserName } = useContext(UserContext);
 
   useEffect(() => {
     const fetchName = async () => {
@@ -40,11 +41,12 @@ const HomePage = () => {
       }
     };
 
-    if (userEmail) {
+    // Fetch the user's name only if it hasn't been set yet
+    if (userEmail ) {
       fetchName();
     }
-  }, [setUserEmail, setUserName, userEmail]);
-  
+  }, [userEmail, setUserName]);
+
   return (
     <div>
       <TypingTest
@@ -61,6 +63,7 @@ const HomePage = () => {
         selectTimeLimit={selectTimeLimit}
         selectDifficulty={selectDifficulty}
         resetTest={resetTest}
+        startTest={startTest}
         calculateAccuracy={calculateAccuracy}
         calculateErrorPercentage={calculateErrorPercentage}
         wpm={wpm}
