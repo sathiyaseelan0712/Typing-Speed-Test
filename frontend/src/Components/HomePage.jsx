@@ -29,7 +29,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchName = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/auth/id?email=${userEmail}`);
+        const response = await fetch(`https://type-racer-api.vercel.app/api/auth/id?email=${userEmail}`);
         if (response.ok) {
           const data = await response.json();
           setUserName(data.name);
