@@ -55,7 +55,7 @@ function SignUp() {
       console.log("User IP Address:", ip);
 
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        "https://type-racer-api.vercel.app/api/auth/signup",
         {
           name,
           email,
