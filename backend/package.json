@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,6 +19,10 @@
     "mongoose": "^8.5.3",
     "nodemailer": "^6.9.14"
   },
-  "keywords": [],
-  "description": ""
+  "keywords": [
+    "backend",
+    "node",
+    "express"
+  ],
+  "description": "A backend server for handling API requests and database operations."
 }
