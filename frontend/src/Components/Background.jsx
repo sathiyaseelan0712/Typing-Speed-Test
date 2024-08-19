@@ -10,7 +10,7 @@ const BackGround = ({ children }) => {
 
   const renderButtons = () => {
     switch (location.pathname) {
-      case "/dashboard":
+      case "/":
         return (
           <>
             <Link
@@ -32,7 +32,7 @@ const BackGround = ({ children }) => {
       case "/forgotpassword":
         return (
           <Link
-            to="/dashboard"
+            to="/"
             className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
           >
             Dashboard
@@ -44,7 +44,7 @@ const BackGround = ({ children }) => {
             <span className="text-white mr-4 text-lg font-mono font-bold">{userName}</span>
             <Link
               className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
-              to="/dashboard"
+              to="/"
               onClick={() => setUserName("")}
             >
               Logout

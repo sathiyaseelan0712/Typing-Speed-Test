@@ -1,4 +1,3 @@
-import React from "react";
 import { useTypingTestLogic } from "../hooks/TypingTestLogic";
 import TypingTest from "./TypingTest";
 const Home = () => {

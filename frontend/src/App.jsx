@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BackgroundWithHeader from "./Components/Background"; // Import BackgroundWithHeader
 import HomePage from "./Components/HomePage";
@@ -43,7 +42,7 @@ function App() {
           }
         />
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <BackgroundWithHeader>
               <Dashboard />
