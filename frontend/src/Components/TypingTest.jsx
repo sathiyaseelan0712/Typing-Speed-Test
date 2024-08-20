@@ -76,7 +76,7 @@ const Content = ({
   }, [isTestActive]);
 
   return (
-    <div className="flex flex-col items-center w-full max-w-md p-6 bg-opacity-50 rounded-lg">
+    <div className="flex flex-col items-center w-full max-w-md p-6 bg-opacity-50 rounded-lg sm:w-full md:w-full lg:w-full">
       <div className="flex justify-between items-center mb-6 w-full">
         <div className="flex flex-col items-center">
           <span className="text-yellow-400 text-lg font-mono font-extrabold mb-1">Time</span>
@@ -100,12 +100,12 @@ const Content = ({
         </div>
       </div>
       {!isTestActive && location.pathname === "/home" && (
-        <div className="flex justify-center items-center mb-8 space-x-16">
+        <div className="flex justify-center items-center mb-8 space-x-8 sm:space-x-16 md:space-x-12 lg:space-x-16">
           <div className="flex flex-col items-center">
             <button
               id="thirty"
-              className={`text-2xl text-white-500 font-mono font-bold ${
-                timer === 30 ? "text-yellow-400 font-bold" : "text-gray-400"
+              className={`text-xl md:text-2xl lg:text-3xl text-white font-mono font-bold ${
+                timer === 30 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectTimeLimit(30)}
             >
@@ -113,10 +113,8 @@ const Content = ({
             </button>
             <button
               id="beg"
-              className={`text-lg text-white-500 font-mono ${
-                difficulty === 1
-                  ? "text-yellow-400 font-bold"
-                  : "text-gray-400"
+              className={`text-lg md:text-xl lg:text-2xl text-white font-mono ${
+                difficulty === 1 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectDifficulty(1)}
             >
@@ -126,8 +124,8 @@ const Content = ({
           <div className="flex flex-col items-center">
             <button
               id="fortyFive"
-              className={`text-2xl text-white-500 font-mono font-bold ${
-                timer === 45 ? "text-yellow-400 font-bold" : "text-gray-400"
+              className={`text-xl md:text-2xl lg:text-3xl text-white font-mono font-bold ${
+                timer === 45 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectTimeLimit(45)}
             >
@@ -135,10 +133,8 @@ const Content = ({
             </button>
             <button
               id="inter"
-              className={`text-lg text-white-500 font-mono ${
-                difficulty === 2
-                  ? "text-yellow-400 font-bold"
-                  : "text-gray-400"
+              className={`text-lg md:text-xl lg:text-2xl text-white font-mono ${
+                difficulty === 2 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectDifficulty(2)}
             >
@@ -148,8 +144,8 @@ const Content = ({
           <div className="flex flex-col items-center">
             <button
               id="sixty"
-              className={`text-2xl text-white-500 font-mono font-bold ${
-                timer === 60 ? "text-yellow-400 font-bold" : "text-gray-400"
+              className={`text-xl md:text-2xl lg:text-3xl text-white font-mono font-bold ${
+                timer === 60 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectTimeLimit(60)}
             >
@@ -157,10 +153,8 @@ const Content = ({
             </button>
             <button
               id="pro"
-              className={`text-lg text-white-500 font-mono ${
-                difficulty === 3
-                  ? "text-yellow-400 font-bold"
-                  : "text-gray-400"
+              className={`text-lg md:text-xl lg:text-2xl text-white font-mono ${
+                difficulty === 3 ? "text-yellow-400" : "text-gray-400"
               }`}
               onClick={() => selectDifficulty(3)}
             >
@@ -169,7 +163,7 @@ const Content = ({
           </div>
         </div>
       )}
-      <div className="w-full mb-8 font-mono text-lg font-bold">
+      <div className="w-full mb-8 font-mono text-lg md:text-xl lg:text-xl font-bold">
         {renderTestWords()}
       </div>
       <input
@@ -184,26 +178,26 @@ const Content = ({
       />
       <div className="flex justify-between items-center mt-6 w-full">
         <div className="flex flex-col items-center">
-          <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
+          <span className="text-yellow-400 text-lg md:text-xl lg:text-2xl mb-1 font-mono font-extrabold">
             Accuracy
           </span>
-          <span className="text-4xl font-mono font-bold text-white">
+          <span className="text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-white">
             {calculateAccuracy()}%
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
+          <span className="text-yellow-400 text-lg md:text-xl lg:text-2xl mb-1 font-mono font-extrabold">
             Errors
           </span>
-          <span className="text-4xl font-mono font-bold text-white">
+          <span className="text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-white">
             {calculateErrorPercentage()}%
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="text-yellow-400 text-lg mb-1 font-mono font-extrabold">
+          <span className="text-yellow-400 text-lg md:text-xl lg:text-2xl mb-1 font-mono font-extrabold">
             WPM
           </span>
-          <span className="text-4xl font-mono font-bold text-white">
+          <span className="text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-white">
             {wpm}
           </span>
         </div>
@@ -211,21 +205,21 @@ const Content = ({
       <div className="flex justify-between w-full mt-6">
         <button
           onClick={() => {
-            setInputValueHistory([]); // Reset the history when restarting the test
+            setInputValueHistory([]);
             resetTest();
           }}
-          className="px-4 py-2 bg-white text-black font-mono  rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+          className="px-4 py-2 bg-white text-black font-mono rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
         >
-          Restart Test
+          RestartTest
         </button>
         <button
           onClick={() => {
             setInputValueHistory([]); // Reset the history when starting the test
             startTest();
           }}
-          className="px-4 py-2 bg-white text-black font-mono  rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+          className="px-4 py-2 bg-white text-black font-mono rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
         >
-          Start Test
+          StartTest
         </button>
       </div>      
     </div>

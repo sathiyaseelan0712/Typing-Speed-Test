@@ -14,7 +14,6 @@ function SignIn() {
     e.preventDefault();
 
     try {
-      // Step 1: Sign In
       const signInResponse = await fetch(
         "https://type-racer-api.vercel.app/api/auth/signin",
         {
@@ -64,7 +63,6 @@ function SignIn() {
       }
     };
 
-    // Fetch the user's name if the email is set
     if (email) {
       fetchName();
     }
@@ -73,21 +71,21 @@ function SignIn() {
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
-      <p className="text-4xl font-bold text-white text-center mb-6 font-mono">
+    <div className="flex flex-col items-center justify-center bg-transparent">
+      <p className="text-2xl sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white text-center mb-6 font-mono">
         Your journey to typing mastery begins here.
       </p>
-      <p className="text-2xl font-bold text-yellow-400 text-center mb-6 font-mono">
+      <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-yellow-400 text-center mb-6 font-mono">
         Login to Measure, Master, and Dominate!
       </p>
       <div className="p-8 rounded-lg shadow-lg w-full max-w-sm bg-transparent">
-        <h2 className="text-3xl font-bold text-white text-center mb-6 font-mono">
-          SignIn
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 font-mono">
+          Sign In
         </h2>
         <form onSubmit={handleSignIn}>
           <div className="mb-4">
             <label
-              className="block text-white font-mono font-extrabold text-lg mb-2"
+              className="block text-md sm:text-lg md:text-xl lg:text-2xl text-white font-mono font-extrabold mb-2"
               htmlFor="email"
             >
               Email
@@ -105,7 +103,7 @@ function SignIn() {
           </div>
           <div className="mb-4 relative">
             <label
-              className="block text-white font-mono font-extrabold text-lg mb-2"
+              className="block text-md sm:text-lg md:text-xl lg:text-2xl text-white font-mono font-extrabold mb-2"
               htmlFor="password"
             >
               Password
@@ -132,14 +130,12 @@ function SignIn() {
               }`}
             >
               {showPassword ? (
-                // Eye open icon
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM2.458 12C3.732 7.943 7.284 5 12 5c4.716 0 8.268 2.943 9.542 7-1.274 4.057-4.826 7-9.542 7-4.716 0-8.268-2.943-9.542-7z"
                 />
               ) : (
-                // Eye closed icon
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -149,7 +145,7 @@ function SignIn() {
             </svg>
           </div>
           <div className="mb-4 flex items-center justify-between">
-            <label className="inline-flex items-center text-white text-md">
+            <label className="inline-flex items-center text-white text-sm sm:text-md lg:text-lg">
               <input
                 type="checkbox"
                 className="form-checkbox bg-transparent text-white rounded"
@@ -158,26 +154,30 @@ function SignIn() {
             </label>
             <a
               href="/forgotpassword"
-              className="text-yellow-400 font-mono hover:underline text-md"
+              className="text-sm sm:text-md lg:text-lg text-yellow-400 font-mono hover:underline"
             >
-              ForgotPassword?
+              Forgot Password?
             </a>
           </div>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-center mb-4 text-sm sm:text-md lg:text-lg">
+              {error}
+            </p>
+          )}
           <button
-            className="w-100vw bg-white text-black font-mono py-2 px-4 rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+            className="w-100 bg-white text-black font-mono py-2 px-4 rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
             type="submit"
           >
             SignIn
           </button>
         </form>
-        <p className="mt-6 text-center text-white font-mono text-md">
-          NewToTypeRacer?{" "}
+        <p className="mt-6 text-center text-sm sm:text-md lg:text-lg text-white font-mono">
+          New to TypeRacer?{" "}
           <a
             href="/signup"
             className="text-yellow-400 font-mono hover:underline"
           >
-            SignUpNow
+            Sign Up Now
           </a>
         </p>
       </div>

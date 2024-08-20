@@ -89,22 +89,19 @@ function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
-      <p className="text-3xl font-extrabold text-white text-center mb-4  font-mono">
-        Your Journey To Typing Mastery Begins Here.
-      </p>
-      <p className="text-2xl font-extrabold text-yellow-400 font-mono text-center mb-2">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-transparent px-4 sm:px-6 lg:px-8">
+      <p className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-yellow-400 font-mono text-center mb-2">
         Sign Up To Measure, Master, & Dominate!
       </p>
-      <div className="bg-transparent p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-white font-mono text-center mb-2">
-          Join TypeRacer
+      <div className="bg-transparent p-4 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-mono text-center">
+          JoinTypeRacer
         </h2>
         <form onSubmit={handleSignUp}>
-          <div className="mb-2">
+          <div className="mb-4">
             <label
-              className="block text-white font-mono font-extrabold text-lg mb-2"
-              htmlFor="email"
+              className="block text-white font-mono font-extrabold text-lg "
+              htmlFor="name"
             >
               Name
             </label>
@@ -120,7 +117,7 @@ function SignUp() {
           </div>
           <div className="mb-4">
             <label
-              className="block text-white font-mono font-extrabold text-lg mb-2"
+              className="block text-white font-mono font-extrabold text-lg"
               htmlFor="email"
             >
               Email
@@ -137,7 +134,7 @@ function SignUp() {
           </div>
           <div className="mb-4 relative">
             <label
-              className="block text-white text-lg font-mono font-extrabold mb-2"
+              className="block text-white text-lg font-mono font-extrabold "
               htmlFor="password"
             >
               Password
@@ -179,7 +176,7 @@ function SignUp() {
           </div>
           <div className="mb-6 relative">
             <label
-              className="block text-white font-mono font-extrabold text-lg mb-2"
+              className="block text-white font-mono font-extrabold text-lg "
               htmlFor="confirmPassword"
             >
               Confirm Password
@@ -220,24 +217,21 @@ function SignUp() {
             </svg>
           </div>
           {errorMessage && (
-            <p className="text-red-500 font-mono font-extrabold mb-4">
+            <p className="text-red-500 text-center text-lg font-bold mb-4">
               {errorMessage}
             </p>
           )}
           <button
-            className="w-100 bg-white text-black font-mono py-2 px-4 rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+            className="w-100 bg-white text-black font-mono py-2 px-4 rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
             type="submit"
           >
             SignUp
           </button>
         </form>
-        <p className="mt-6 text-center text-white text-md">
-          AlreadyOnTypeRacer?{" "}
-          <a
-            href="/signin"
-            className="text-yellow-400 font-mono hover:underline"
-          >
-            SignInNow
+        <p className="text-white text-center mt-4">
+          Already have an account?{" "}
+          <a href="/signin" className="text-yellow-400 hover:text-yellow-500">
+            Sign in here.
           </a>
         </p>
       </div>
