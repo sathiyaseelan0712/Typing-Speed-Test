@@ -13,20 +13,23 @@ const BackGround = ({ children }) => {
       case "/":
         return (
           <>
-            <Link
-              to="/signin"
-              className="text-white mr-4 font-mono font-bold transition-colors duration-300 hover:text-yellow-500"
-            >
-              SignIn
-            </Link>
-            <Link
-              to="/signup"
-              className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold"
-            >
-              JoinTypeRacer
-            </Link>
+            <div className="flex flex-col md:flex-row md:items-center">
+              <Link
+                to="/signup"
+                className="bg-white text-black px-4 py-2 rounded-full font-mono font-bold mb-2 md:mb-0"
+              >
+                JoinTypeRacer
+              </Link>
+              <Link
+                to="/signin"
+                className="text-white font-mono font-bold transition-colors duration-300 hover:text-yellow-500"
+              >
+                SignIn
+              </Link>
+            </div>
           </>
         );
+        
       case "/signin":
       case "/signup":
       case "/forgotpassword":

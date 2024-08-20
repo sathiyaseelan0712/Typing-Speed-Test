@@ -36,54 +36,49 @@ const proWords = [
   "dissonance", "bias", "prejudice", "stereotype", "discrimination", "oppression", "liberation", "emancipation", "freedom", "justice"
 ];
 
-// useTypingTestLogic custom hook
 export const useTypingTestLogic = () => {
   const [difficulty, setDifficulty] = useState(1); // 1 = Beginner, 2 = Intermediate, 3 = Pro
   const [timer, setTimer] = useState(30);
   const [timeLeft, setTimeLeft] = useState(timer);
   const [wordsSubmitted, setWordsSubmitted] = useState(0);
   const [wordsCorrect, setWordsCorrect] = useState(0);
-  const [wordsIncorrect, setWordsIncorrect] = useState(0); // Track incorrect words
+  const [wordsIncorrect, setWordsIncorrect] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isTestActive, setIsTestActive] = useState(false);
   const [testWords, setTestWords] = useState([]);
   const [intervalId, setIntervalId] = useState(null);
 
-  // Function to generate test words
   const generateTestWords = useCallback((diff) => {
     const randomWords = () => {
       const wordsPool = diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
       const wordCount = 25;
       let generatedWords = [];
-
+  
       for (let i = 0; i < wordCount; i++) {
         const word = wordsPool[Math.floor(Math.random() * wordsPool.length)];
         generatedWords.push(word);
       }
-
+  
       return generatedWords;
     };
-
+  
     const words = randomWords();
     setTestWords(words);
     setCurrentWordIndex(0);
     setInputValue("");
   }, []);
 
-  // Initialize words based on difficulty
   useEffect(() => {
     generateTestWords(difficulty);
   }, [difficulty, generateTestWords]);
 
-  // Function to end the test
   const endTest = useCallback(() => {
     clearInterval(intervalId);
     setIsTestActive(false);
     setInputValue("");
   }, [intervalId]);
 
-  // End the test when the timer reaches 0
   useEffect(() => {
     if (timeLeft === 0) {
       endTest();
@@ -91,15 +86,27 @@ export const useTypingTestLogic = () => {
   }, [timeLeft, endTest]);
 
   // Function to start the test
-  const startTest = () => {
-    setIsTestActive(true);
-    const id = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
-    }, 1000);
-    setIntervalId(id);
-  };
+  const startTest = useCallback(() => {
+    if (!isTestActive) {
+      setIsTestActive(true);
+      setTimeLeft(timer);
+      setWordsSubmitted(0);
+      setWordsCorrect(0);
+      setWordsIncorrect(0);
+      generateTestWords(difficulty);
+      const id = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+      setIntervalId(id);
+    }
+  }, [isTestActive, timer, difficulty, generateTestWords]);
 
-  // Function to handle input change
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [intervalId]);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
 
@@ -108,9 +115,8 @@ export const useTypingTestLogic = () => {
     } else {
       setInputValue(value);
     }
-  }; 
+  };
 
-  // Function to check the entered word
   const checkWord = () => {
     const wordEntered = inputValue.trim();
     setInputValue("");
@@ -129,7 +135,6 @@ export const useTypingTestLogic = () => {
     }
   };
 
-  // Function to reset the test
   const resetTest = () => {
     clearInterval(intervalId);
     setWordsSubmitted(0);
@@ -140,27 +145,23 @@ export const useTypingTestLogic = () => {
     generateTestWords(difficulty);
   };
 
-  // Function to select the time limit
   const selectTimeLimit = (time) => {
     setTimer(time);
     setTimeLeft(time);
     setIsTestActive(false);
   };
 
-  // Function to select the difficulty
   const selectDifficulty = (diff) => {
     setDifficulty(diff);
     generateTestWords(diff);
   };
 
-  // Function to calculate accuracy
   const calculateAccuracy = () => {
     return wordsSubmitted !== 0
       ? Math.floor((wordsCorrect / wordsSubmitted) * 100)
       : 0;
   };
 
-  // Function to calculate error percentage
   const calculateErrorPercentage = () => {
     return wordsSubmitted !== 0
       ? Math.floor((wordsIncorrect / wordsSubmitted) * 100)
@@ -183,7 +184,7 @@ export const useTypingTestLogic = () => {
     selectTimeLimit,
     selectDifficulty,
     resetTest,
-    startTest,
+    startTest, // Include startTest in the return object
     calculateAccuracy,
     calculateErrorPercentage,
     wpm,
