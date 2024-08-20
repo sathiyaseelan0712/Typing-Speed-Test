@@ -22,6 +22,8 @@ const HomePage = () => {
     startTest,
     wordsIncorrect, 
     calculateErrorPercentage, 
+    setCurrentWordIndex,
+    setInputValue
   } = useTypingTestLogic();
 
   const { userEmail, setUserName } = useContext(UserContext);
@@ -67,6 +69,8 @@ const HomePage = () => {
         calculateAccuracy={calculateAccuracy}
         calculateErrorPercentage={calculateErrorPercentage}
         wpm={wpm}
+        setCurrentWordIndex={setCurrentWordIndex}
+        setInputValue={setInputValue}
       />
     </div>
   );

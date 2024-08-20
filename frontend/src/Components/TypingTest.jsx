@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 /* eslint-disable react/prop-types */
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -20,6 +20,8 @@ const Content = ({
   calculateAccuracy,
   calculateErrorPercentage,
   wpm,
+  setCurrentWordIndex,
+  setInputValue
 }) => {
   const location = useLocation();
   const [inputValueHistory, setInputValueHistory] = useState([]); // Stores the typed words
@@ -42,16 +44,14 @@ const Content = ({
     }
   };
 
-  // Function to render the test words with appropriate colors
   const renderTestWords = () => {
-    if (!testWords.length) {
+    if (!Array.isArray(testWords) || testWords.length === 0) {
       return null;
     }
-
     return testWords.map((word, index) => {
       let className = "text-white"; // Default color: white
-
-      if (index < currentWordIndex) {
+  
+      if (isTestActive && index < currentWordIndex) {
         // Check if the word was typed correctly
         const typedWord = inputValueHistory[index]?.trim() || "";
         className = typedWord.toLowerCase() === word.toLowerCase()
@@ -59,8 +59,14 @@ const Content = ({
           : "text-red-400";    // Incorrectly typed word: red
       } else if (index === currentWordIndex) {
         className = "text-yellow-400"; // Current word being typed: yellow
+      } else if (!isTestActive && timeLeft === 0) {
+        // After time is up, color the remaining words based on correctness
+        const typedWord = inputValueHistory[index]?.trim() || "";
+        className = typedWord.toLowerCase() === word.toLowerCase()
+          ? "text-green-400"
+          : "text-red-400";
       }
-
+  
       return (
         <span key={index} className={className}>
           {word + (index < testWords.length - 1 ? " " : "")}
@@ -68,6 +74,7 @@ const Content = ({
       );
     });
   };
+  
 
   useEffect(() => {
     if (!isTestActive) {
@@ -213,10 +220,7 @@ const Content = ({
           RestartTest
         </button>
         <button
-          onClick={() => {
-            setInputValueHistory([]); // Reset the history when starting the test
-            startTest();
-          }}
+          onClick={startTest}
           className="px-4 py-2 bg-white text-black font-mono rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
         >
           StartTest

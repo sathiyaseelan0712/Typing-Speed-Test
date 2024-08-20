@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 
 const beginnerWords = [
@@ -50,24 +49,18 @@ export const useTypingTestLogic = () => {
   const [intervalId, setIntervalId] = useState(null);
 
   const generateTestWords = useCallback((diff) => {
-    const randomWords = () => {
-      const wordsPool = diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
-      const wordCount = 25;
-      let generatedWords = [];
-  
-      for (let i = 0; i < wordCount; i++) {
-        const word = wordsPool[Math.floor(Math.random() * wordsPool.length)];
-        generatedWords.push(word);
-      }
-  
-      return generatedWords;
-    };
-  
-    const words = randomWords();
-    setTestWords(words);
-    setCurrentWordIndex(0);
+    const wordsPool = diff === 1 ? beginnerWords : diff === 2 ? intermediateWords : proWords;
+    const wordCount = 25;
+    let generatedWords = [];
+    for (let i = 0; i < wordCount; i++) {
+      const word = wordsPool[Math.floor(Math.random() * wordsPool.length)];
+      generatedWords.push(word);
+    }
+    setTestWords(generatedWords);
+    setCurrentWordIndex(0); // Reset the index when generating new words
     setInputValue("");
   }, []);
+  
 
   useEffect(() => {
     generateTestWords(difficulty);
@@ -93,13 +86,12 @@ export const useTypingTestLogic = () => {
       setWordsSubmitted(0);
       setWordsCorrect(0);
       setWordsIncorrect(0);
-      generateTestWords(difficulty);
       const id = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
       setIntervalId(id);
     }
-  }, [isTestActive, timer, difficulty, generateTestWords]);
+  }, [isTestActive, timer]);
 
   useEffect(() => {
     return () => {
@@ -109,12 +101,10 @@ export const useTypingTestLogic = () => {
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-
+    setInputValue(value);
     if (value.endsWith(" ")) {
       checkWord();
-    } else {
-      setInputValue(value);
-    }
+    } 
   };
 
   const checkWord = () => {
@@ -142,6 +132,7 @@ export const useTypingTestLogic = () => {
     setWordsIncorrect(0);
     setTimeLeft(timer);
     setIsTestActive(false);
+    setCurrentWordIndex(0);
     generateTestWords(difficulty);
   };
 
@@ -188,5 +179,7 @@ export const useTypingTestLogic = () => {
     calculateAccuracy,
     calculateErrorPercentage,
     wpm,
+    setCurrentWordIndex,
+    setInputValue
   };
 };
