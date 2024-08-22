@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -25,6 +24,8 @@ const Content = ({
 }) => {
   const location = useLocation();
   const [inputValueHistory, setInputValueHistory] = useState([]); // Stores the typed words
+  // eslint-disable-next-line no-unused-vars
+  const [testCompleted, setTestCompleted] = useState(false); // State to check if test is completed
 
   // Handle input and space key press
   const handleInput = (e) => {
@@ -40,7 +41,7 @@ const Content = ({
     if (trimmedWord.length > 0) {
       setInputValueHistory([...inputValueHistory, trimmedWord]); // Add the typed word to history
       setCurrentWordIndex(currentWordIndex + 1); // Move to the next word
-      setInputValue(""); // Clear the input field for the next word
+      setInputValue(""); 
     }
   };
 
@@ -48,9 +49,10 @@ const Content = ({
     if (!Array.isArray(testWords) || testWords.length === 0) {
       return null;
     }
+
     return testWords.map((word, index) => {
-      let className = "text-white"; // Default color: white
-  
+      let className = "text-white";
+
       if (isTestActive && index < currentWordIndex) {
         // Check if the word was typed correctly
         const typedWord = inputValueHistory[index]?.trim() || "";
@@ -64,9 +66,11 @@ const Content = ({
         const typedWord = inputValueHistory[index]?.trim() || "";
         className = typedWord.toLowerCase() === word.toLowerCase()
           ? "text-green-400"
-          : "text-red-400";
+          : typedWord.length > 0
+          ? "text-red-400"
+          : "text-gray-400"; // Unattended words: grey
       }
-  
+
       return (
         <span key={index} className={className}>
           {word + (index < testWords.length - 1 ? " " : "")}
@@ -74,11 +78,13 @@ const Content = ({
       );
     });
   };
-  
 
   useEffect(() => {
     if (!isTestActive) {
       setInputValueHistory([]); 
+      setTestCompleted(true); // Mark test as completed when it's not active
+    } else {
+      setTestCompleted(false); // Reset completion status when test is active
     }
   }, [isTestActive]);
 
@@ -178,6 +184,7 @@ const Content = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleInput}
+        onFocus={startTest} // Make sure to call the startTest function
         className={`w-full p-2 border border-gray-300 rounded-lg ${
           isTestActive ? "bg-white" : "bg-gray-200"
         }`}
@@ -217,13 +224,13 @@ const Content = ({
           }}
           className="px-4 py-2 bg-white text-black font-mono rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
         >
-          RestartTest
+          Restart Test
         </button>
         <button
           onClick={startTest}
           className="px-4 py-2 bg-white text-black font-mono rounded-3xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
         >
-          StartTest
+          Start Test
         </button>
       </div>      
     </div>

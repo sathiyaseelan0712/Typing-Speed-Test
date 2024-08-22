@@ -5,11 +5,19 @@ const beginnerWords = [
   "run", "jump", "fish", "tree", "star", "moon", "bird", "rain", "snow", "wind",
   "blue", "red", "green", "yellow", "orange", "purple", "pink", "white", "black", "brown",
   "house", "home", "school", "friend", "family", "happy", "sad", "good", "bad", "fun",
-  "play", "sing", "dance", "read", "write", "draw", "paint", "build", "break", "fix",
+  "play", "sing", "dance", "read", "write", "draw", "paint", "build", "glow", "fix",
   "eat", "drink", "sleep", "wake", "work", "rest", "laugh", "cry", "talk", "listen",
   "smile", "frown", "shout", "whisper", "begin", "end", "stop", "go", "come", "leave",
   "small", "big", "short", "long", "hot", "cold", "warm", "cool", "soft", "hard",
-  "day", "night", "morning", "evening", "noon", "afternoon", "week", "month", "year", "time"
+  "day", "night", "morning", "evening", "noon", "afternoon", "week", "month", "year", "time",
+  "rainbow", "flower", "grass", "snowman", "beach", "forest", "ocean", "mountain", "river", "lake",
+  "friendship", "teacher", "student", "parent", "sibling", "neighbor", "playground", "zoo", "museum", "park",
+  "city", "town", "village", "farm", "garden", "nature", "animal", "insect", "birdie", "fishy",
+  "toy", "game", "ball", "kite", "puzzle", "book", "story", "tale", "riddle", "joke",
+  "train", "bus", "bike", "scooter", "car", "truck", "airplane", "boat", "ship", "shipwreck",
+  "paintbrush", "pencil", "paper", "canvas", "clay", "sculpture", "gallery", "artist", "masterpiece", "frame",
+  "moonlight", "starlight", "twilight", "dawn", "sunset", "shadow", "reflection", "sparkle", "glitter", "glow"
+  
 ];
 
 const intermediateWords = [
@@ -108,11 +116,11 @@ export const useTypingTestLogic = () => {
   };
 
   const checkWord = () => {
-    const wordEntered = inputValue.trim();
+    const wordEntered = inputValue.trim().toLowerCase(); 
     setInputValue("");
     setWordsSubmitted((prev) => prev + 1);
 
-    if (testWords[currentWordIndex] === wordEntered) {
+    if (testWords[currentWordIndex].toLowerCase() === wordEntered) { 
       setWordsCorrect((prev) => prev + 1);
     } else {
       setWordsIncorrect((prev) => prev + 1);
@@ -178,7 +186,7 @@ export const useTypingTestLogic = () => {
     startTest, // Include startTest in the return object
     calculateAccuracy,
     calculateErrorPercentage,
-    wpm,
+    wpm,  
     setCurrentWordIndex,
     setInputValue
   };
